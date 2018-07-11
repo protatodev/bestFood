@@ -1,10 +1,15 @@
 ﻿using System;
+using MySql.Data.MySqlClient;
+using BestCuisine;
+
 namespace BestCuisine.Models
 {
-    public class Database
+    public class DB
     {
-        public Database()
+        public static MySqlConnection Connection()
         {
+            MySqlConnection conn = new MySqlConnection(DBConfiguration.ConnectionString);
+            return conn;
         }
     }
 }

@@ -65,34 +65,34 @@ namespace BestCuisine.Models
             }
             rdr.Dispose();
 
-            List<Cuisine> cuisines = new List<Cuisine> { };
-            foreach (int cuisine in cuisineIds)
-            {
-                var cuisineQuery = conn.CreateCommand() as MySqlCommand;
-                cuisineQuery.CommandText = @"SELECT * FROM Cuisine WHERE id = @CuisineId;";
+        List<Cuisine> cuisines = new List<Cuisine> { };
+        foreach (int cuisine in cuisineIds)
+        {
+            var cuisineQuery = conn.CreateCommand() as MySqlCommand;
+            cuisineQuery.CommandText = @"SELECT * FROM Cuisine WHERE id = @CuisineId;";
 
-                MySqlParameter cuisineIdParameter = new MySqlParameter();
-                cuisineIdParameter.ParameterName = "@CuisineId";
-                cuisineIdParameter.Value = cuisines;
-                cuisineQuery.Parameters.Add(cuisineIdParameter);
+            MySqlParameter cuisineIdParameter = new MySqlParameter();
+            cuisineIdParameter.ParameterName = "@CuisineId";
+            cuisineIdParameter.Value = cuisines;
+            cuisineQuery.Parameters.Add(cuisineIdParameter);
 
-                var cuisineQueryRdr = cuisineQuery.ExecuteReader() as MySqlDataReader;
-                while (cuisineQueryRdr.Read())
-                {
-                    int thisCuisineId = cuisineQueryRdr.GetInt32(0);
-                    string cuisineName = cuisineQueryRdr.GetString(1);
-                    Cuisine foundCuisine = new Cuisine(cuisineName, thisCuisineId);
-                    cuisines.Add(foundCuisine);
-                }
-                cuisineQueryRdr.Dispose();
-            }
-            conn.Close();
-            if (conn != null)
+            var cuisineQueryRdr = cuisineQuery.ExecuteReader() as MySqlDataReader;
+            while (cuisineQueryRdr.Read())
             {
-                conn.Dispose();
+                int thisCuisineId = cuisineQueryRdr.GetInt32(0);
+                string cuisineName = cuisineQueryRdr.GetString(1);
+                Cuisine foundCuisine = new Cuisine(cuisineName, thisCuisineId);
+                cuisines.Add(foundCuisine);
             }
-            return cuisines;
+            cuisineQueryRdr.Dispose();
         }
+        conn.Close();
+        if (conn != null)
+        {
+            conn.Dispose();
+        }
+        return cuisines;
+    }
 
         /*
         public void Edit(string newDescription)
