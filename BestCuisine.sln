@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestCuisine", "BestCuisine\BestCuisine.csproj", "{A1408B56-3F4B-48BF-A785-C62BEA0F6ED0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestCuisine.Tests", "BestCuisine.Tests\BestCuisine.Tests.csproj", "{1C78EA5F-1607-457B-9DBA-E312D4C37B62}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1408B56-3F4B-48BF-A785-C62BEA0F6ED0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1408B56-3F4B-48BF-A785-C62BEA0F6ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1408B56-3F4B-48BF-A785-C62BEA0F6ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1408B56-3F4B-48BF-A785-C62BEA0F6ED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C78EA5F-1607-457B-9DBA-E312D4C37B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C78EA5F-1607-457B-9DBA-E312D4C37B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C78EA5F-1607-457B-9DBA-E312D4C37B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C78EA5F-1607-457B-9DBA-E312D4C37B62}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
