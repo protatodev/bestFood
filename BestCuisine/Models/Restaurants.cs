@@ -17,6 +17,7 @@ namespace BestCuisine.Models
             this.Id = Id;
         }
 
+
         public void AddCuisine(Cuisine newCuisine)
         {
             MySqlConnection conn = DB.Connection();

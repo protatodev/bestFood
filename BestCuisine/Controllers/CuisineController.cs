@@ -7,16 +7,9 @@ using BestCuisine.Models;
 
 namespace BestCuisine.Controllers
 {
-    public class DataController : Controller
+    public class CuisineController : Controller
     {
-
-
-        //[HttpGet("/form")]
-        //public ActionResult CuisineForm()
-        //{
-        //    return View();
-        //}
-
+        /*
         [HttpGet("/restaurants/new")]
         public ActionResult Create()
         {
@@ -24,16 +17,6 @@ namespace BestCuisine.Controllers
             allItems = Cuisine.GetAll();
             return View(allItems);
         }
-
-        //[HttpPost("/click_cuisine")]
-        //public ActionResult Create()
-        //{
-            
-
-
-        //    return View("CuisineForm", allItems);
-        //}
-
-
+        */
     }
 }

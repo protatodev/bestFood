@@ -1,0 +1,20 @@
+﻿@{
+
+Layout = "_Layout";
+
+}
+
+<form action="/restaurant" method="post">
+
+    <select name="selection">
+        @foreach (var option in Model)
+        {
+         <option value="@option.GetId()">@option.Name</option>
+        }
+    </select>
+      <div class='form-group'>
+        <label for='restaurant'>Restaurant</label>
+        <input id='restaurant' name='restaurant' class='form-control' type='text'>
+      </div>
+    <button class="btn btn-primary" type="submit"> FOOD! </button>
+</form>
