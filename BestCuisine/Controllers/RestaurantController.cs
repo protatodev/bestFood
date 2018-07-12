@@ -25,20 +25,20 @@ namespace BestCuisine.Controllers
             return View(ViewModel.GetObjects());
         }
     
-        [HttpPost("/restaurant")]
-        public ActionResult input()
-        {
-            string newPlace = Request.Form["restaurant"];
-            Restaurants newRestaurant = new Restaurants(newPlace);
-            newRestaurant.Save();
+        //[HttpPost("/restaurant")]
+        //public ActionResult input()
+        //{
+        //    string newPlace = Request.Form["restaurant"];
+        //    Restaurants newRestaurant = new Restaurants(newPlace);
+        //    newRestaurant.Save();
 
-            int id = int.Parse(Request.Form["selection"]);
-            Cuisine cuisine = Cuisine.Find(id);
-            newRestaurant.AddCuisine(cuisine);
+        //    int id = int.Parse(Request.Form["selection"]);
+        //    Cuisine cuisine = Cuisine.Find(id);
+        //    newRestaurant.AddCuisine(cuisine);
 
-            ViewModel collection = new ViewModel(newRestaurant, cuisine);
+        //    ViewModel collection = new ViewModel(newRestaurant, cuisine);
 
-            return RedirectToAction("ViewAll");
-        }
+        //    return RedirectToAction("ViewAll");
+        //}
     }
 }

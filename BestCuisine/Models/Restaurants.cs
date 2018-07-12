@@ -214,50 +214,15 @@ namespace BestCuisine.Models
             return foundItem;
         }
 
-        public List<Cuisine> GetCuisine()
+
+
+        public static List<ViewModel> GetCuisineJoin()
         {
-            MySqlConnection conn = DB.Connection();
-            conn.Open();
-            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT cuisine_id FROM cuisine_restaurants WHERE restaurant_id = @RestaurantId;";
-
-            MySqlParameter RestaurantIdParameter = new MySqlParameter();
-            RestaurantIdParameter.ParameterName = "@RestaurantId";
-            RestaurantIdParameter.Value = Id;
-            cmd.Parameters.Add(RestaurantIdParameter);
-
-            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-            List<Cuisine> cuisine = new List<Cuisine> { };
-
-            while (rdr.Read())
-            {
-                int cuisine_Id = rdr.GetInt32(1);
-                Cuisine newCuisine = Cuisine.Find(cuisine_Id);
-                cuisine.Add(newCuisine);
-            }
-            conn.Close();
-            if (conn != null)
-            {
-                conn.Dispose();
-            }
-            return cuisine;
-        }
-
-
-        public List<ViewModel> GetCuisineJoin()
-        {
-            MySqlConnection conn = DB.Connection();
-            conn.Open();
+            MySqlConnection conn = DB.Connection(); conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"SELECT * FROM
-                                 restaurants JOIN cuisine_restaurants ON (Restaurants.id = cuisine_restaurants.restaurant_id)
+                                 Restaurants JOIN cuisine_restaurants ON (Restaurants.id = cuisine_restaurants.restaurant_id)
                                         JOIN Cuisine ON (cuisine_restaurants.cuisine_id = Cuisine.id);";
-                                //WHERE restaurant_id = 1;";
-
-            MySqlParameter RestaurantIdParameter = new MySqlParameter();
-            RestaurantIdParameter.ParameterName = "@RestaurantId";
-            RestaurantIdParameter.Value = Id;
-            cmd.Parameters.Add(RestaurantIdParameter);
 
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             List<ViewModel> modelList = new List<ViewModel> { };
@@ -273,7 +238,7 @@ namespace BestCuisine.Models
                 Cuisine newCuisine = new Cuisine(cuisineName, cuisineId);
 
                 ViewModel newList = new ViewModel(newRestaurant, newCuisine); 
-                ViewModel.list.Add(newList);
+                //ViewModel.list.Add(newList);
             }
             conn.Close();
             if (conn != null)
