@@ -11,7 +11,7 @@ namespace BestCuisine.Models
         public string Name { get; set; }
 
 
-        public Restaurants(string name, int id = 0)
+        public Restaurants(string name, int id)
         {
             this.Name = name;
             this.Id = Id;
@@ -80,7 +80,7 @@ namespace BestCuisine.Models
             conn.Open();
 
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"DELETE FROM items WHERE id = @searchId;";
+            cmd.CommandText = @"DELETE FROM Restaurants WHERE id = @searchId; Delete From cuisine_restaurants WHERE restaurant_id = @searchId;";
 
             MySqlParameter searchId = new MySqlParameter();
             searchId.ParameterName = "@searchId";
@@ -216,13 +216,50 @@ namespace BestCuisine.Models
 
 
 
-        public static List<ViewModel> GetCuisineJoin()
+        public static void GetCuisineJoin()
         {
             MySqlConnection conn = DB.Connection(); conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"SELECT * FROM
                                  Restaurants JOIN cuisine_restaurants ON (Restaurants.id = cuisine_restaurants.restaurant_id)
                                         JOIN Cuisine ON (cuisine_restaurants.cuisine_id = Cuisine.id);";
+
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            //List<ViewModel> modelList = new List<ViewModel> { };
+
+            while (rdr.Read())
+            {
+                string restaurantName = rdr.GetString(1);
+                int restaurantId = rdr.GetInt32(4);
+                string cuisineName = rdr.GetString(6);
+                int cuisineId = rdr.GetInt32(3);
+
+                Restaurants newRestaurant = new Restaurants(restaurantName, restaurantId);
+                Cuisine newCuisine = new Cuisine(cuisineName, cuisineId);
+
+                ViewModel newList = new ViewModel(newRestaurant, newCuisine); 
+            }
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            //return modelList;
+        }
+
+        public static List<ViewModel> SearchByCuisine(int Id)
+        {
+            MySqlConnection conn = DB.Connection(); conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM
+                                 Restaurants JOIN cuisine_restaurants ON (Restaurants.id = cuisine_restaurants.restaurant_id)
+                                        JOIN Cuisine ON (cuisine_restaurants.cuisine_id = Cuisine.id)
+                                             WHERE Cuisine.id = @Id;";
+
+            MySqlParameter thisId = new MySqlParameter();
+            thisId.ParameterName = "@Id";
+            thisId.Value = Id;
+            cmd.Parameters.Add(thisId);
 
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             List<ViewModel> modelList = new List<ViewModel> { };
@@ -236,9 +273,8 @@ namespace BestCuisine.Models
 
                 Restaurants newRestaurant = new Restaurants(restaurantName, restaurantId);
                 Cuisine newCuisine = new Cuisine(cuisineName, cuisineId);
-
-                ViewModel newList = new ViewModel(newRestaurant, newCuisine); 
-                //ViewModel.list.Add(newList);
+                ViewModel newList = new ViewModel(newRestaurant, newCuisine);
+                modelList.Add(newList);
             }
             conn.Close();
             if (conn != null)
@@ -247,6 +283,7 @@ namespace BestCuisine.Models
             }
             return modelList;
         }
+
 
 
     }

@@ -9,14 +9,24 @@ namespace BestCuisine.Controllers
 {
     public class CuisineController : Controller
     {
-        /*
-        [HttpGet("/restaurants/new")]
-        public ActionResult Create()
+        [HttpGet("/search/cuisine")]
+        public ActionResult SearchCuisine()
         {
             List<Cuisine> allItems = new List<Cuisine>();
             allItems = Cuisine.GetAll();
+
             return View(allItems);
+        
         }
-        */
+
+        [HttpPost("/search/cuisine/results")]
+        public ActionResult SearchResults()
+        {
+            int Id = int.Parse(Request.Form["selection"]);
+
+            return View(Restaurants.SearchByCuisine(Id));
+
+        }
+    
     }
 }

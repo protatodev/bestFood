@@ -14,8 +14,7 @@ Layout = "_Layout";
     
     @foreach (var item in Model)
     {
-        <li>@item.GetRestaurantName() @item.GetCuisineName() @item.GetRestaurantId()|| <a href="/delete/@item.GetRestaurantId()">delete</a></li>
-            
+        <li>@item.GetRestaurantName() @item.GetCuisineName()</li>
     }
     
 </ul>

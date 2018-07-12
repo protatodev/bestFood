@@ -1,0 +1,23 @@
+﻿@{
+
+Layout = "_Layout";
+
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="jumbotron">
+            <h1>Search Cuisine</h1>
+        </div>
+        <form action="/search/cuisine/results" method="post">
+
+            <select name="selection">
+                @foreach (var option in Model)
+                {
+                 <option value="@option.GetId()">@option.Name</option>
+                }
+            </select>
+            <button class="btn btn-primary" type="submit"> FOOD! </button>
+        </form>
+    </div>
+</div>

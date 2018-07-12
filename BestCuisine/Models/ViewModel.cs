@@ -24,14 +24,31 @@ namespace BestCuisine.Models
             return list;
         }
 
+        public static List<ViewModel> GetCuisines(int id)
+        {
+            Restaurants.SearchByCuisine(id);
+            return list;
+        }
+
         public string GetRestaurantName()
         {
             return restaurant.Name;    
         }
 
+        public int GetRestaurantId()
+        {
+            
+            return restaurant.Id;
+        }
+
         public string GetCuisineName()
         {
             return cuisine.Name;
+        }
+
+        public int GetCuisineId()
+        {
+            return cuisine.GetId();
         }
     }
 }

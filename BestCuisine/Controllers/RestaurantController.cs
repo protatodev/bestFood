@@ -9,7 +9,7 @@ namespace BestCuisine.Controllers
 {
     public class RestaurantController : Controller
     {
-        
+
         [HttpGet("/restaurants/new")]
         public ActionResult Create()
         {
@@ -21,24 +21,41 @@ namespace BestCuisine.Controllers
         [HttpGet("/restaurant")]
         public ActionResult ViewAll()
         {
-  
+
             return View(ViewModel.GetObjects());
         }
-    
-        //[HttpPost("/restaurant")]
-        //public ActionResult input()
-        //{
-        //    string newPlace = Request.Form["restaurant"];
-        //    Restaurants newRestaurant = new Restaurants(newPlace);
-        //    newRestaurant.Save();
 
-        //    int id = int.Parse(Request.Form["selection"]);
-        //    Cuisine cuisine = Cuisine.Find(id);
-        //    newRestaurant.AddCuisine(cuisine);
+        [HttpGet("/search")]
+        public ActionResult SearchForm()
+        {
 
-        //    ViewModel collection = new ViewModel(newRestaurant, cuisine);
+            return View();
+        }
 
-        //    return RedirectToAction("ViewAll");
-        //}
+
+        [HttpPost("/restaurant")]
+        public ActionResult input()
+        {
+            string newPlace = Request.Form["restaurant"];
+            Restaurants newRestaurant = new Restaurants(newPlace, 0);
+            newRestaurant.Save();
+
+            int id = int.Parse(Request.Form["selection"]);
+            Cuisine cuisine = Cuisine.Find(id);
+            newRestaurant.AddCuisine(cuisine);
+
+            ViewModel collection = new ViewModel(newRestaurant, cuisine);
+
+            return RedirectToAction("ViewAll");
+        }
+
+        [HttpGet("/delete/{id}")]
+        public ActionResult Delete(int id)
+        {
+            Restaurants thisPlace = Restaurants.Find(id);
+            thisPlace.Delete();
+
+            return RedirectToAction("ViewAll");
+        }
     }
 }
