@@ -18,6 +18,13 @@ namespace BestCuisine.Controllers
             return View(allItems);
         }
 
+        [HttpGet("/restaurant")]
+        public ActionResult ViewAll()
+        {
+  
+            return View(ViewModel.GetObjects());
+        }
+    
         [HttpPost("/restaurant")]
         public ActionResult input()
         {
@@ -31,7 +38,7 @@ namespace BestCuisine.Controllers
 
             ViewModel collection = new ViewModel(newRestaurant, cuisine);
 
-            return View("ViewAll", ViewModel.GetObjects());
+            return RedirectToAction("ViewAll");
         }
     }
 }

@@ -20,6 +20,8 @@ namespace BestCuisine.Models
 
         public static List<ViewModel> GetObjects()
         {
+            Restaurants newRestaurant = new Restaurants("name", 0);
+            newRestaurant.GetCuisineJoin();
             return list;
         }
 
